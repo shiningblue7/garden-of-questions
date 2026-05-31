@@ -33,7 +33,8 @@ body {
 
 button,
 a,
-input {
+input,
+textarea {
   font: inherit;
 }
 
@@ -220,6 +221,7 @@ h2 {
 
 .intro,
 .garden,
+.lantern-wall,
 .compass {
   padding: clamp(56px, 9vw, 108px) clamp(18px, 4vw, 56px);
 }
@@ -327,6 +329,129 @@ h2 {
   line-height: 1.4;
 }
 
+.lantern-wall {
+  background:
+    radial-gradient(circle at 18% 28%, rgba(245, 195, 107, 0.15), transparent 30%),
+    linear-gradient(180deg, #101a18, #092022 54%, #0e211d);
+}
+
+.lantern-wall__inner {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.72fr) minmax(280px, 0.78fr) minmax(320px, 1.25fr);
+  gap: clamp(20px, 4vw, 44px);
+  max-width: 1180px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.lantern-wall__copy p:last-child {
+  margin: 20px 0 0;
+  color: var(--mist);
+  font-size: 1.06rem;
+  line-height: 1.6;
+}
+
+.lantern-form {
+  display: grid;
+  gap: 14px;
+  padding: clamp(20px, 4vw, 30px);
+  border: 1px solid rgba(245, 195, 107, 0.28);
+  border-radius: 8px;
+  background: rgba(246, 239, 225, 0.08);
+  box-shadow: var(--shadow);
+}
+
+.lantern-form label {
+  color: var(--lamp);
+  font-weight: 900;
+}
+
+.lantern-form textarea {
+  width: 100%;
+  min-height: 138px;
+  resize: vertical;
+  border: 1px solid rgba(246, 239, 225, 0.22);
+  border-radius: 8px;
+  padding: 14px 15px;
+  background: rgba(7, 17, 21, 0.58);
+  color: var(--paper);
+  line-height: 1.45;
+}
+
+.lantern-form textarea:focus {
+  border-color: rgba(245, 195, 107, 0.74);
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(245, 195, 107, 0.14);
+}
+
+.lantern-form__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.lantern-form__footer span {
+  color: rgba(246, 239, 225, 0.62);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.lanterns {
+  min-height: 420px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  align-content: start;
+}
+
+.lantern {
+  position: relative;
+  min-height: 154px;
+  display: flex;
+  align-items: end;
+  padding: 18px;
+  border: 1px solid rgba(245, 195, 107, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(245, 195, 107, 0.12), rgba(246, 239, 225, 0.06)),
+    rgba(7, 17, 21, 0.24);
+  animation: lantern-rise 480ms ease both;
+}
+
+.lantern:nth-child(2n) {
+  margin-top: 34px;
+}
+
+.lantern p {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: rgba(246, 239, 225, 0.9);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.18rem, 2vw, 1.55rem);
+  line-height: 1.18;
+}
+
+.lantern__glow {
+  position: absolute;
+  top: 16px;
+  left: 18px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--lamp);
+  box-shadow:
+    0 0 18px rgba(245, 195, 107, 0.8),
+    0 0 56px rgba(245, 195, 107, 0.38);
+  animation: glow-pulse 2.6s ease-in-out infinite;
+}
+
+.lantern.is-new {
+  border-color: rgba(238, 125, 99, 0.62);
+}
+
 .compass {
   display: grid;
   grid-template-columns: minmax(0, 0.85fr) minmax(280px, 1fr);
@@ -407,6 +532,11 @@ body.is-still .scroll-hint span {
   animation-play-state: paused;
 }
 
+body.is-still .lantern,
+body.is-still .lantern__glow {
+  animation-play-state: paused;
+}
+
 @keyframes drift {
   0%,
   100% {
@@ -419,12 +549,36 @@ body.is-still .scroll-hint span {
   }
 }
 
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.72;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes lantern-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 900px) {
   .hero {
     min-height: 84svh;
   }
 
   .section-heading,
+  .lantern-wall__inner,
   .compass {
     display: block;
   }
@@ -443,6 +597,11 @@ body.is-still .scroll-hint span {
   }
 
   .compass__panel {
+    margin-top: 26px;
+  }
+
+  .lantern-form,
+  .lanterns {
     margin-top: 26px;
   }
 }
@@ -475,6 +634,20 @@ body.is-still .scroll-hint span {
 
   .seed {
     min-height: 176px;
+  }
+
+  .lantern-form__footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .lanterns {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .lantern:nth-child(2n) {
+    margin-top: 0;
   }
 }
 

@@ -98,6 +98,50 @@
         </div>
       </section>
 
+      <section class="lantern-wall" id="lantern-wall" aria-labelledby="lantern-title">
+        <div class="lantern-wall__inner">
+          <div class="lantern-wall__copy">
+            <p class="kicker">the lantern wall</p>
+            <h2 id="lantern-title">Leave one question glowing</h2>
+            <p>
+              Write a question you are carrying. It stays in this browser and joins
+              the wall as a small light for the rest of your visit.
+            </p>
+          </div>
+
+          <form class="lantern-form" data-lantern-form>
+            <label for="lantern-question">Your question</label>
+            <textarea
+              id="lantern-question"
+              name="question"
+              maxlength="140"
+              rows="4"
+              placeholder="What are you still learning how to ask?"
+              data-lantern-input
+            ></textarea>
+            <div class="lantern-form__footer">
+              <span data-lantern-count>0 / 140</span>
+              <button class="button button--primary" type="submit">Light it</button>
+            </div>
+          </form>
+
+          <div class="lanterns" data-lanterns aria-live="polite">
+            <article class="lantern lantern--fixed">
+              <span class="lantern__glow" aria-hidden="true"></span>
+              <p>What deserves my attention tomorrow?</p>
+            </article>
+            <article class="lantern lantern--fixed">
+              <span class="lantern__glow" aria-hidden="true"></span>
+              <p>Where did I become more patient than I used to be?</p>
+            </article>
+            <article class="lantern lantern--fixed">
+              <span class="lantern__glow" aria-hidden="true"></span>
+              <p>What would change if I treated uncertainty as a doorway?</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <section class="compass" aria-labelledby="compass-title">
         <div>
           <p class="kicker">a little instrument</p>

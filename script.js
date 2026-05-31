@@ -48,6 +48,12 @@ const closeButton = document.querySelector("[data-close]");
 const motionButton = document.querySelector("[data-toggle-sound]");
 const wonder = document.querySelector("[data-wonder]");
 const wonderOutput = document.querySelector("[data-wonder-output]");
+const lanternForm = document.querySelector("[data-lantern-form]");
+const lanternInput = document.querySelector("[data-lantern-input]");
+const lanternCount = document.querySelector("[data-lantern-count]");
+const lanterns = document.querySelector("[data-lanterns]");
+const lanternStorageKey = "garden-of-questions-lanterns";
+let sessionLanterns = [];
 
 function openSeed(key) {
   const seed = seeds[key];
@@ -98,3 +104,69 @@ function describeWonder(value) {
 wonder.addEventListener("input", () => {
   wonderOutput.textContent = describeWonder(Number(wonder.value));
 });
+
+function readLanterns() {
+  try {
+    if (typeof localStorage === "undefined") return sessionLanterns;
+    return JSON.parse(localStorage.getItem(lanternStorageKey)) || [];
+  } catch {
+    return sessionLanterns;
+  }
+}
+
+function saveLanterns(items) {
+  sessionLanterns = items.slice(0, 8);
+
+  try {
+    if (typeof localStorage !== "undefined") {
+      localStorage.setItem(lanternStorageKey, JSON.stringify(sessionLanterns));
+    }
+  } catch {
+    // Some privacy modes disable localStorage; the wall still works for this visit.
+  }
+}
+
+function createLantern(question, isNew = false) {
+  const lantern = document.createElement("article");
+  lantern.className = isNew ? "lantern is-new" : "lantern";
+
+  const glow = document.createElement("span");
+  glow.className = "lantern__glow";
+  glow.setAttribute("aria-hidden", "true");
+
+  const text = document.createElement("p");
+  text.textContent = question;
+
+  lantern.append(glow, text);
+  return lantern;
+}
+
+function renderSavedLanterns() {
+  readLanterns().forEach((question) => {
+    lanterns.append(createLantern(question));
+  });
+}
+
+function updateLanternCount() {
+  lanternCount.textContent = `${lanternInput.value.length} / ${lanternInput.maxLength}`;
+}
+
+lanternInput.addEventListener("input", updateLanternCount);
+
+lanternForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const question = lanternInput.value.trim().replace(/\s+/g, " ");
+  if (!question) {
+    lanternInput.focus();
+    return;
+  }
+
+  const saved = [question, ...readLanterns()].slice(0, 8);
+  saveLanterns(saved);
+  lanterns.prepend(createLantern(question, true));
+  lanternInput.value = "";
+  updateLanternCount();
+});
+
+renderSavedLanterns();
