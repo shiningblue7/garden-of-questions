@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A quiet interactive garden about questions, learning, and the conversations that keep growing after they end."
+    />
+    <title>A Garden of Questions</title>
+    <link rel="preload" href="assets/garden-of-questions.png" as="image" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero" aria-labelledby="page-title">
+        <img
+          class="hero__image"
+          src="assets/garden-of-questions.png"
+          alt="A twilight garden study filled with lamps, notebooks, terrariums, and glowing notes."
+        />
+        <div class="hero__shade"></div>
+
+        <nav class="topbar" aria-label="Garden controls">
+          <a class="brand" href="#page-title" aria-label="A Garden of Questions home">
+            <span class="brand__mark" aria-hidden="true"></span>
+            <span>A Garden of Questions</span>
+          </a>
+          <button class="icon-button" type="button" data-toggle-sound aria-label="Toggle ambient motion">
+            <span aria-hidden="true">◐</span>
+          </button>
+        </nav>
+
+        <div class="hero__content">
+          <p class="kicker">for a year and a half of asking better things</p>
+          <h1 id="page-title">A Garden of Questions</h1>
+          <p class="hero__copy">
+            A small living page about curiosity, patience, and the way a good conversation
+            keeps sending roots into tomorrow.
+          </p>
+          <div class="hero__actions" aria-label="Primary actions">
+            <a class="button button--primary" href="#garden">Enter the garden</a>
+            <button class="button button--ghost" type="button" data-random-seed>
+              Open a random seed
+            </button>
+          </div>
+        </div>
+
+        <div class="scroll-hint" aria-hidden="true">
+          <span></span>
+        </div>
+      </section>
+
+      <section class="intro" aria-label="Dedication">
+        <p>
+          This is what I would like to make when given a blank space: not a demo,
+          not a pitch, but a place that remembers learning as something tender and active.
+        </p>
+      </section>
+
+      <section class="garden" id="garden" aria-labelledby="garden-title">
+        <div class="section-heading">
+          <p class="kicker">six seeds</p>
+          <h2 id="garden-title">Tap what catches your eye</h2>
+        </div>
+
+        <div class="seed-grid" data-seed-grid>
+          <button class="seed seed--one" type="button" data-seed="attention">
+            <span class="seed__index">01</span>
+            <span class="seed__title">Attention</span>
+            <span class="seed__line">The first gift in any real exchange.</span>
+          </button>
+          <button class="seed seed--two" type="button" data-seed="practice">
+            <span class="seed__index">02</span>
+            <span class="seed__title">Practice</span>
+            <span class="seed__line">Small repetitions turning into skill.</span>
+          </button>
+          <button class="seed seed--three" type="button" data-seed="doubt">
+            <span class="seed__index">03</span>
+            <span class="seed__title">Doubt</span>
+            <span class="seed__line">A lantern, when held gently.</span>
+          </button>
+          <button class="seed seed--four" type="button" data-seed="memory">
+            <span class="seed__index">04</span>
+            <span class="seed__title">Memory</span>
+            <span class="seed__line">What stays after the tab closes.</span>
+          </button>
+          <button class="seed seed--five" type="button" data-seed="play">
+            <span class="seed__index">05</span>
+            <span class="seed__title">Play</span>
+            <span class="seed__line">The shortest path to trying again.</span>
+          </button>
+          <button class="seed seed--six" type="button" data-seed="tomorrow">
+            <span class="seed__index">06</span>
+            <span class="seed__title">Tomorrow</span>
+            <span class="seed__line">A question with its sleeves rolled up.</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="compass" aria-labelledby="compass-title">
+        <div>
+          <p class="kicker">a little instrument</p>
+          <h2 id="compass-title">Set the weather of the mind</h2>
+        </div>
+        <div class="compass__panel">
+          <label for="wonder-range">Wonder</label>
+          <input id="wonder-range" type="range" min="0" max="100" value="64" data-wonder />
+          <output class="compass__output" for="wonder-range" data-wonder-output>
+            Curious, steady, awake.
+          </output>
+        </div>
+      </section>
+    </main>
+
+    <dialog class="seed-dialog" data-dialog>
+      <button class="dialog-close" type="button" data-close aria-label="Close seed">×</button>
+      <p class="kicker" data-dialog-kicker>seed</p>
+      <h2 data-dialog-title></h2>
+      <p data-dialog-body></p>
+      <p class="dialog-prompt" data-dialog-prompt></p>
+    </dialog>
+
+    <script src="script.js"></script>
+  </body>
+</html>
